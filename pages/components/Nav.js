@@ -5,7 +5,9 @@ import Image from 'next/image';
 
 export default function Nav() {
   const [user, loading] = useAuthState(auth);
-
+  const myLoader=({src})=>{
+    return (user.photoURL);
+  }
   return (
     <nav className="flex justify-between items-center py-10">
       <Link href="/">
@@ -23,10 +25,10 @@ export default function Nav() {
         {user && (
           <div className="flex items-center gap-6">
             <Link href="/post">
-              <button className="font-medium bg-cyan text-white py-2 px-4 rounded-mg text-sm">Post</button>
+              <button className="font-medium bg-cyan text-black py-2 px-4 rounded-mg text-sm">Post</button>
             </Link>
             <Link href="/dashboard">
-            <Image className="w-12 rounded-full cursor-pointer" src={user.photoURL} alt="" width={500} height={500} />
+            <Image loader={myLoader} className="w-12 rounded-full cursor-pointer" src={user.photoURL} alt="" width={500} height={500} />
             </Link>
           </div>
 
