@@ -4,13 +4,15 @@ import { useAuthState } from "react-firebase-hooks/auth";
 export default function Message({ children, avatar, username, description }) {
   const [user, loading] = useAuthState(auth);
 
+  console.log({avatar})
+
   return (
     <div className="bg-white p-8 border-b-2 rounded-lg">
       <div>
         <Image
           
           className="w-10 rounded-full"
-          src={{avatar}}
+          src={avatar}
           width={500}
           height={500}
           alt=""

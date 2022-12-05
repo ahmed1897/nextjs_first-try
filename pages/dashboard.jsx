@@ -20,11 +20,10 @@ export default function Dashboard() {
     return <BaTrash2Fill>Click</BaTrash2Fill>;
   };
 
-
   const route = useRouter();
   const [user, loading] = useAuthState(auth);
   const [posts, setPosts] = useState([]);
- 
+
   // see if user is logged
   const getData = async () => {
     if (loading) return;
@@ -44,8 +43,15 @@ export default function Dashboard() {
 
   // Get users Data
   useEffect(() => {
-    getData();
-  }, [user, loading]);
+    if (loading) return;
+    if (!user) return route.push("/auth/login");
+    const collectionRef = collection(db, "posts");
+    const q = query(collectionRef, where("user", "==", user.uid));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setPosts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    });
+    return unsubscribe;
+  }, [user, loading, route]);
 
   return (
     <div>
@@ -59,12 +65,10 @@ export default function Dashboard() {
                   onClick={() => deletePost(post.id)}
                   className="text-pink-600 flex items-center justify-center gap-2 py-2 text-sm"
                 >
-                  
                   Delete
                 </button>
                 <Link href={{ pathname: "/post", query: post }}>
                   <button className="text-teal-600 flex items-center justify-center gap-2 py-2 text-sm">
-                   
                     Edit
                   </button>
                 </Link>

@@ -9,9 +9,9 @@ export default function Nav() {
     return user.photoURL;
   };
   return (
-    <nav className="flex justify-between items-center py-10">
+    <nav className="flex justify-between items-center py-10 bg-white">
       <Link href="/">
-        <button className="text-lg font-medium">El home ya Bany Adam</button>
+        <button className="text-lg font-medium px-9">Home</button>
       </Link>
       <ul className="flex items-center gap-10">
         {!user && (
@@ -19,13 +19,13 @@ export default function Nav() {
             href="/auth/login"
             className="py-2 px-4 text-sm bg-cyan-500 text-white rounded-lg font-medium ml-8"
           >
-            Dos hna kda
+            login
           </Link>
         )}
         {user && (
           <div className="flex items-center gap-6">
             <Link href="/post">
-              <button className="font-medium bg-cyan text-black py-2 px-4 rounded-mg text-sm">
+              <button className="font-medium bg-cyan-500 bg-cyan rounded-lg text-white py-2 px-4 rounded-mg text-sm">
                 Post
               </button>
             </Link>
